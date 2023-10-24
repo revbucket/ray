@@ -1,5 +1,5 @@
 import logging
-
+import numpy as np
 from typing import Dict, Any, List, Optional, Tuple, Union
 
 from ray._raylet import (
@@ -328,6 +328,7 @@ class Gauge(Metric):
             value(int, float): Value to set the gauge to.
             tags(Dict[str, str]): Tags to set or override for this gauge.
         """
+        value = int(value) if isinstance(value, np.int64) else value
         if not isinstance(value, (int, float)):
             raise TypeError(f"value must be int or float, got {type(value)}.")
 
